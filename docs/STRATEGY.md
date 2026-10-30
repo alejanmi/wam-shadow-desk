@@ -35,6 +35,6 @@ Fact, Verified, Supported, Contested, Jagged, Refuted, Untestable.
 | --- | --- |
 | 0 Consolidate | Former AutoDetections tests pass in the new layout; no secret in repo or history. **Done.** |
 | 1 Ingest parity | Replaying Oct 24 reproduces run 6361's numbers; every difference explained. **Offline done; live pending.** |
-| 2-3 Ledger + falsification | On 60 replayed days, survival rate stable and < ~15%; planted fake signals caught. |
+| 2-3 Ledger + falsification | On 60 replayed days, survival rate stable and < ~15%; planted fake signals caught. **Run 001: 1 day, 11 tests, survival 0/11; self-test FPR 5.8% ± 0.7% at α=5%, power 72%.** |
 | 4 Echoes, Shadows, causal | >= 1 dual-plane pattern passes N4 over >= 12 months, lead time reported. |
 | 5 Models + UI | 30 daily Shadow Briefs; 50+ resolved forecasts on a reliability diagram; first proposal to WAM. |

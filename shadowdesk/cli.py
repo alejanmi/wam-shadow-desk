@@ -43,6 +43,11 @@ def main(argv: list[str] | None = None) -> int:
     _common(p)
     p.add_argument("--session", default="2026-10-23", help="trading day the brief describes")
     p.add_argument("--live", action="store_true", help="fetch missing snapshots from the network")
+    rs = sub.add_parser("research", help="test the brief's conclusions and the loop's hypotheses against market history")
+    rs.add_argument("--market", default="fixtures/market_weekly")
+    rs.add_argument("--as-of", default="2026-10-19", help="last weekly bar used for estimation (Monday label)")
+    rs.add_argument("--out", default="reports")
+    rs.add_argument("--skip-self-test", action="store_true")
     v = sub.add_parser("verify-snapshots")
     v.add_argument("--session", default="2026-10-23")
     a = ap.parse_args(argv)
@@ -52,6 +57,9 @@ def main(argv: list[str] | None = None) -> int:
         bad = SnapshotStore(settings.data_dir / "snapshots", a.session).verify()
         print("all snapshots verified" if not bad else "hash mismatch:\n" + "\n".join(bad))
         return 1 if bad else 0
+
+    if a.cmd == "research":
+        return _research(a, settings)
 
     fx = RunFixtures.load(a.fixtures)
     reader = load_reader(a.reader)
@@ -79,6 +87,30 @@ def main(argv: list[str] | None = None) -> int:
     n_pass = sum(c.status == "pass" for c in checks)
     print(f"{n_pass} reproduced, {n_find} findings, {n_fail} failures -> {md}")
     return 0 if n_fail == 0 else 2
+
+
+def _research(a, settings) -> int:
+    from shadowdesk.research import report
+    from shadowdesk.research.data import load_panel
+    from shadowdesk.research.run import Research, judge, to_inquiry
+
+    panel = load_panel(a.market, as_of=a.as_of)
+    R = Research(panel)
+    results = judge(R.wam_claims() + R.loop_claims())
+    st = {"false_positive_rate": float("nan"), "n_null": 0, "power": float("nan"), "n_planted": 0, "planted_beta": 0.0} \
+        if a.skip_self_test else R.self_test()
+    outcome = R.outcome_week()
+    md = report.render(results, st, outcome, R.data_ref, panel.as_of)
+    m, j = report.write(a.out, "research-run-001", md, results, st, outcome)
+    ledger = Ledger(settings.data_dir / "ledger.db")
+    for r in results:
+        ledger.add_inquiry(to_inquiry(r, R.data_ref))
+    ledger.close()
+    counts = {}
+    for r in results:
+        counts[r.outcome] = counts.get(r.outcome, 0) + 1
+    print(f"{len(results)} claims: {counts}; self-test FPR {st['false_positive_rate']:.1%}, power {st['power']:.0%} -> {m}")
+    return 0
 
 
 if __name__ == "__main__":

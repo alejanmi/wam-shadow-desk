@@ -1,0 +1,9 @@
+{
+  "source": "Yahoo Finance public chart API, https://query1.finance.yahoo.com/v8/finance/chart/<SYMBOL>?range=5y&interval=1wk (adjusted close; CL=F front-month WTI future; ^TNX 10-year Treasury yield in percent; DX-Y.NYB ICE dollar index)",
+  "fetched_at": "2026-10-30T02:41:00Z",
+  "fetched_via": "Claude built-in browser pane on Ale's computer; values rounded to 5 significant digits in the browser before transfer",
+  "dates": "262 consecutive weekly bars labelled by their Monday, 2021-10-25 .. 2026-10-26. Bar 2026-10-19 is the week ending Fri 2026-10-23 (the session run 6361 describes). Bar 2026-10-26 is partial (through Thu 2026-10-29) and is used only as outcome data, never for estimation.",
+  "payload_sha256": "43a5ac4ef1f1f0204aeed48ae335a5c2105534fc04ef442c573749cb9f011b93",
+  "payload_construction": "'{\"dates\":' + json.dumps(dates, separators=(',',':')) + ',\"series\":' + <series.json stripped> + '}'",
+  "licence_note": "Yahoo data is for personal research use; replace with the FMP/FRED snapshot path for anything shown to clients."
+}
