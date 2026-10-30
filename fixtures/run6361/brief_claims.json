@@ -1,0 +1,18 @@
+{"_about":"Claims as printed on the hosted Pocket Pulse page for run 6361 (https://market-pulse.will-f84.workers.dev/brief/pp-annie-2026-10-24-2141), read 2026-10-29. Short quotes only, used to check the page against the data.",
+"published_for":"2026-10-24 (Saturday)",
+"tiles":{"yield2Y":{"value":4.65,"change":-0.16,"label":"today"},"yield10Y":{"value":4.96,"change":-0.17,"label":"today"},"vix":{"value":19.45,"changePct":2.21},"wti":{"value":103.27,"changePct":3.82},"spx":{"value":7623.68,"changePct":-0.52},"gold":{"value":4007.9,"changePct":-1.29},"nasdaq":{"value":25955.34,"changePct":-0.21},"mortgage30":{"value":7.32}},
+"text_numbers":[
+ {"id":"vix_text","quote":"The VIX ... rose 2.35 points to 19.03 as of October 22","series":"vix","value":19.03},
+ {"id":"tenyear_text","quote":"The 10-year Treasury yield fell 0.17% to 4.96% as of October 22","series":"yield10Y","value":4.96,"change":-0.17,"unit_written":"%"},
+ {"id":"gdpnow_text","quote":"The Atlanta Fed's GDPNow estimate is 3.50% for the quarter, but that reading is from July 1 and is 116 days old","series":"gdpNow","value":3.5,"as_of":"2026-07-01"}
+],
+"earnings_mentions":[
+ {"symbol":"MSFT","date":"2026-10-28","quote":"Microsoft reports fiscal first-quarter results on Wednesday, October 28, after the close"},
+ {"symbol":"GOOG","date":"2026-10-28","quote":"Alphabet reports third-quarter results on Wednesday, October 28"},
+ {"symbol":"AMZN","date":"2026-10-29","quote":"Amazon reports on Thursday, October 29"}
+],
+"week_ahead_earnings":["AMZN"],
+"sector_exposure_shown":["Technology","Communication Services","Healthcare"],
+"rating_actions_shown":6,
+"insider_shown":["AAPL"]
+}

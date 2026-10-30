@@ -1,0 +1,363 @@
+[
+  {
+    "check_id": "P-BREADTH",
+    "layer": "L2",
+    "title": "Breadth of the reader's companies",
+    "status": "pass",
+    "severity": "info",
+    "query": "brief_facts.breadth(fixtures/run6361/reference_market.json:price.quotes)",
+    "expected": {
+      "up": 2,
+      "down": 7,
+      "flat": 0,
+      "counted": 9
+    },
+    "actual": {
+      "up": 2,
+      "down": 7,
+      "flat": 0,
+      "counted": 9
+    },
+    "detail": ""
+  },
+  {
+    "check_id": "P-MOVERS",
+    "layer": "L2",
+    "title": "Biggest riser and faller",
+    "status": "pass",
+    "severity": "info",
+    "query": "brief_facts.top_movers(fixtures/run6361/reference_market.json:price.quotes)",
+    "expected": [
+      "MSFT",
+      "T"
+    ],
+    "actual": [
+      "MSFT",
+      "T"
+    ],
+    "detail": ""
+  },
+  {
+    "check_id": "P-SECTORS",
+    "layer": "L2",
+    "title": "Best and worst SPDR sector of the session",
+    "status": "pass",
+    "severity": "info",
+    "query": "brief_facts.sector_summary(fixtures/run6361/reference_market.json:sectors)",
+    "expected": {
+      "best": "XLE",
+      "worst": "XLP",
+      "up": 3,
+      "down": 8
+    },
+    "actual": {
+      "best": "XLE",
+      "worst": "XLP",
+      "up": 3,
+      "down": 8
+    },
+    "detail": ""
+  },
+  {
+    "check_id": "P-SRO",
+    "layer": "L2",
+    "title": "S&P 500 regime signal (EMA10 vs EMA35)",
+    "status": "pass",
+    "severity": "info",
+    "query": "brief_facts.sro(fixtures/run6361/raw_inputs.json:gspc_newest_first reversed)",
+    "expected": {
+      "sro": 0.02,
+      "sroRegime": "NEUTRAL"
+    },
+    "actual": {
+      "sro": 0.02,
+      "sroRegime": "NEUTRAL"
+    },
+    "detail": ""
+  },
+  {
+    "check_id": "P-RSI",
+    "layer": "L2",
+    "title": "Average RSI-14 across holdings",
+    "status": "pass",
+    "severity": "info",
+    "query": "brief_facts.rsi_summary(fixtures/run6361/reference_disclosures.json:rsi)",
+    "expected": 46.4,
+    "actual": 46.4,
+    "detail": ""
+  },
+  {
+    "check_id": "P-RATINGS",
+    "layer": "L2",
+    "title": "Analyst rating actions shown (port of the Processing node)",
+    "status": "pass",
+    "severity": "info",
+    "query": "brief_facts.rating_changes(fixtures/run6361/raw_inputs.json:grades_since_2026_10_10, now=2026-10-24T21:39:53.379000+00:00)",
+    "expected": [
+      [
+        "ORCL",
+        "2026-10-23",
+        "Goldman Sachs",
+        "reiterated"
+      ],
+      [
+        "GS",
+        "2026-10-23",
+        "Freedom Broker",
+        "upgraded"
+      ],
+      [
+        "ORCL",
+        "2026-10-22",
+        "Cantor Fitzgerald",
+        "reiterated"
+      ],
+      [
+        "T",
+        "2026-10-22",
+        "Barclays",
+        "reiterated"
+      ],
+      [
+        "T",
+        "2026-10-22",
+        "Argus Research",
+        "reiterated"
+      ],
+      [
+        "NVDA",
+        "2026-10-22",
+        "Needham",
+        "reiterated"
+      ]
+    ],
+    "actual": [
+      [
+        "ORCL",
+        "2026-10-23",
+        "Goldman Sachs",
+        "reiterated"
+      ],
+      [
+        "GS",
+        "2026-10-23",
+        "Freedom Broker",
+        "upgraded"
+      ],
+      [
+        "ORCL",
+        "2026-10-22",
+        "Cantor Fitzgerald",
+        "reiterated"
+      ],
+      [
+        "T",
+        "2026-10-22",
+        "Barclays",
+        "reiterated"
+      ],
+      [
+        "T",
+        "2026-10-22",
+        "Argus Research",
+        "reiterated"
+      ],
+      [
+        "NVDA",
+        "2026-10-22",
+        "Needham",
+        "reiterated"
+      ]
+    ],
+    "detail": ""
+  },
+  {
+    "check_id": "F-RATINGS-NEWS-DROPPED",
+    "layer": "L3",
+    "title": "Rating upgrades/downgrades cut in favour of reiterations",
+    "status": "finding",
+    "severity": "high",
+    "query": "brief_facts.rating_changes_fixed(fixtures/run6361/raw_inputs.json:grades_since_2026_10_10, now=2026-10-24T21:39:53.379000+00:00)",
+    "expected": "every upgrade/downgrade in the 7-day window is shown",
+    "actual": [
+      "Loop Capital downgraded AAPL to Hold from Buy on 2026-10-20."
+    ],
+    "detail": "The Processing node ranks news above reiterations only within one company, then sorts all companies by date and keeps 6, so an older downgrade loses to newer routine reiterations."
+  },
+  {
+    "check_id": "F-TICKER",
+    "layer": "L1",
+    "title": "Reader tickers that no data source recognises",
+    "status": "finding",
+    "severity": "medium",
+    "query": "ReaderProfile.ticker_issues(config/readers/annie.yaml) + fixtures/run6361/reference_market.json:price.quotesFailed",
+    "expected": [],
+    "actual": {
+      "profile": [
+        "CITI: not a listed symbol; did you mean C?"
+      ],
+      "quote_failures": [
+        "CITI"
+      ]
+    },
+    "detail": "The name is silently missing from every section of the brief (quotes, news, ratings, 13F)."
+  },
+  {
+    "check_id": "F-VIX-TWO-VALUES",
+    "layer": "L1",
+    "title": "Two different VIX values on one page",
+    "status": "finding",
+    "severity": "medium",
+    "query": "fixtures/run6361/brief_claims.json:tiles.vix vs text_numbers[vix]  (tile=FMP ^VIX quote, text=FRED VIXCLS 2026-10-22)",
+    "expected": "one value per series per page",
+    "actual": {
+      "tile": 19.45,
+      "text": 19.03
+    },
+    "detail": ""
+  },
+  {
+    "check_id": "F-STALE-AS-TODAY",
+    "layer": "L1",
+    "title": "Rate tiles labelled 'today' carry an older reading",
+    "status": "finding",
+    "severity": "medium",
+    "query": "fixtures/run6361/brief_claims.json:tiles[*].label == 'today' vs reference_market.json:fred.rateDate",
+    "expected": "label shows the observation date (2026-10-22)",
+    "actual": {
+      "tiles": [
+        "yield2Y",
+        "yield10Y"
+      ],
+      "observation": "2026-10-22",
+      "published": "2026-10-24",
+      "days_old": 2
+    },
+    "detail": ""
+  },
+  {
+    "check_id": "F-STALE-GDPNOW",
+    "layer": "L1",
+    "title": "GDPNow reading older than its freshness limit is still printed",
+    "status": "finding",
+    "severity": "low",
+    "query": "fixtures/run6361/brief_claims.json:text_numbers[gdpNow].as_of; limit MAX_AGE_DAYS['quarterly']=100",
+    "expected": "<= 100 days old or omitted",
+    "actual": "115 days old",
+    "detail": "The page discloses the age, but a 116-day-old nowcast is not a current GDP read; suppress or refresh."
+  },
+  {
+    "check_id": "F-UNITS",
+    "layer": "L1",
+    "title": "Yield changes written as percent instead of percentage points",
+    "status": "finding",
+    "severity": "low",
+    "query": "fixtures/run6361/brief_claims.json:text_numbers[unit_written=='%' and series startswith 'yield']",
+    "expected": "-0.17 percentage points (17 bp)",
+    "actual": [
+      "tenyear_text"
+    ],
+    "detail": "'fell 0.17%' reads as a 0.17% relative move (about 0.8 bp)."
+  },
+  {
+    "check_id": "F-EARNINGS-COVERAGE",
+    "layer": "L3",
+    "title": "Reader companies reporting this week missing from the earnings calendar",
+    "status": "finding",
+    "severity": "high",
+    "query": "fixtures/run6361/brief_claims.json:earnings_mentions in window 2026-10-24..2026-10-31 minus reference_disclosures.json:earnings",
+    "expected": [
+      "AMZN",
+      "GOOG",
+      "MSFT"
+    ],
+    "actual": {
+      "calendar": [
+        "AMZN"
+      ],
+      "missing": [
+        "MSFT 2026-10-28",
+        "GOOG 2026-10-28"
+      ]
+    },
+    "detail": "The brief's own news text dates these reports inside the window, but Week Ahead lists only the calendar's names. Both cannot be right: either the FMP calendar missed them or the text is wrong. The live check (EDGAR 8-K item 2.02 after the date) settles it."
+  },
+  {
+    "check_id": "F-FEED-MISSING",
+    "layer": "L0",
+    "title": "News feeds that fetched but never reached the aggregator",
+    "status": "finding",
+    "severity": "medium",
+    "query": "fixtures/run6361/reference_disclosures.json:newsMeta.feedsMissing",
+    "expected": [],
+    "actual": [
+      "RSS Googlenews"
+    ],
+    "detail": "RSS Aggregate runs once per inbound wire; it emitted before the Google News node finished."
+  },
+  {
+    "check_id": "F-FUND-SECTOR",
+    "layer": "L1",
+    "title": "Index funds classified as the Financial Services sector",
+    "status": "finding",
+    "severity": "low",
+    "query": "fixtures/run6361/reference_disclosures.json:sectorMapping[fund tickers]",
+    "expected": "funds looked through to their holdings (or excluded)",
+    "actual": [
+      "SCHD",
+      "SPYM",
+      "VOO",
+      "VXF"
+    ],
+    "detail": "FMP's profile sector for an ETF is the issuer's industry; any sector exposure built on it is wrong."
+  },
+  {
+    "check_id": "F-SECTOR-EXPOSURE",
+    "layer": "L3",
+    "title": "Sectors the reader holds that the brief left out",
+    "status": "finding",
+    "severity": "low",
+    "query": "holdings minus funds -> fixtures/run6361/reference_disclosures.json:sectorMapping -> SPDR sector; vs brief_claims.json:sector_exposure_shown",
+    "expected": [
+      "Communication Services",
+      "Consumer Discretionary",
+      "Health Care",
+      "Technology"
+    ],
+    "actual": {
+      "shown": [
+        "Communication Services",
+        "Health Care",
+        "Technology"
+      ],
+      "omitted": [
+        "Consumer Discretionary"
+      ],
+      "omitted_moves": {
+        "Consumer Discretionary": -1.6607
+      }
+    },
+    "detail": ""
+  },
+  {
+    "check_id": "F-SENSITIVITY-UNLINKED",
+    "layer": "L3",
+    "title": "A reader's top-rated risk moved, and the brief did not connect them",
+    "status": "finding",
+    "severity": "medium",
+    "query": "ReaderProfile.top_sensitivities(7) x fixtures/run6361/reference_market.json:price.commodities.crudePct, sectors.XLE",
+    "expected": "brief references the reader's stated scenario when its driver moves >= 2%",
+    "actual": [
+      {
+        "scenario": "Strait of Hormuz / Middle East Oil Shock",
+        "concern": 8,
+        "evidence": {
+          "crudePct": 3.8202,
+          "XLE": 2.6047,
+          "XLE_rank": "best sector"
+        }
+      }
+    ],
+    "detail": "The workflow's Aggregate Sheets node drops the Sensitivity tab, so the model never sees it."
+  }
+]

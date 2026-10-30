@@ -1,0 +1,21 @@
+# secrets
+.env
+*.env
+!.env.example
+
+# local state: snapshots, ledger, reports from live runs
+data/
+snapshots/
+reports/live/
+*.db
+*.sqlite
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+build/
+dist/

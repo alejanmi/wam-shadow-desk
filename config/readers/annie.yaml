@@ -1,0 +1,32 @@
+# Reader profile for the pilot (Pocket Pulse, Retail Agent V1).
+# Mirrors what n8n run 6361 read from the "Santi Miguel AI AGENT TEMPLATE" sheet on 2026-10-24.
+# No contact details live here; delivery stays in WAM's workflow.
+reader: annie
+display_name: Annie
+product: Pocket Pulse
+holdings: [VOO, AMZN, MSFT, VXF, SPYM, ORCL, JNJ, T, SCHD]
+watchlist: [NVDA, AAPL, GOOG, JPM, CITI, GS, WFC]
+topics:   # the workflow keeps the first 5 of 14 sheet rows
+  - The state of the software technology sector as AI begins to disrupt some of its major companies
+  - GDP growth and how it is tracking for the year
+  - Earnings revisions and highlights through the reporting season
+  - The path of interest rates from the Federal Reserve
+  - US dollar strength and its impact on multinational earnings
+people:   # sheet has 8; the workflow's profile keeps 5, its people-news branch fetches all 8
+  - {name: Kevin Warsh, role: Federal Reserve Chair}
+  - {name: Jamie Dimon, role: JP Morgan CEO}
+  - {name: Dario Amodei, role: Anthropic CEO}
+  - {name: Larry Fink, role: BlackRock CEO}
+  - {name: Sam Altman, role: OpenAI CEO}
+  - {name: Elon Musk, role: ""}
+  - {name: Javier Milei, role: ""}
+  - {name: Donald Trump, role: ""}
+sensitivities:   # dropped by the workflow's Aggregate Sheets node; standing scenarios here
+  - {scenario: AI Bubble Correction, concern: 7}
+  - {scenario: Taiwan Conflict / Semiconductor Disruption, concern: 5}
+  - {scenario: Strait of Hormuz / Middle East Oil Shock, concern: 8}
+  - {scenario: Midterm Election Policy Shift, concern: 4}
+  - {scenario: Oracle financing and news specifics, concern: null}
+  - {scenario: Rate Hike, concern: 5}
+  - {scenario: Rate Cut, concern: 5}
+mode: {name: Hybrid, temperature: 7}

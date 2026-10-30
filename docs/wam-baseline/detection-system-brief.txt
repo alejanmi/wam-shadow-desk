@@ -1,0 +1,125 @@
+WAM Detection & Self-Improvement System — Project Summary
+We are exploring a finance-focused AI reliability and detection system for WAM Agentics.
+The project started from a practical problem we've experienced with WAM's financial brief workflow: sometimes an agent fails to produce a brief because it gets caught in an automatic feedback loop, repeats work, spends excessive time/tokens, or reaches a failure state without recognizing it. Although we've improved those individual problems, the larger opportunity is to build a system that can detect these problems systematically and improve the underlying process over time.
+Core concept
+The system would sit alongside WAM's other AI systems and continuously monitor their execution:
+Detect → Diagnose → Intervene → Verify → Learn → Detect earlier next time
+Rather than waiting for an agent to completely fail, the detection layer would look for behavioral signals that indicate something is beginning to go wrong.
+Examples:
+Repeated tool calls or searches
+Circular feedback loops
+Repeated reasoning or information
+Excessive token consumption
+Abnormally long execution times
+Declining information gained from additional research
+Contradictory financial information
+Missing or incomplete outputs
+Repeated failed validation
+Behavior resembling previous failed executions
+The secondary diagnostic agent
+When the detection system identifies something abnormal, it can activate a separate diagnostic/evaluator sub-agent.
+Its job isn't simply to ask, "Was the answer correct?"
+Instead:
+What happened? Why did it happen? Is it actually a problem? What caused it? What intervention should occur?
+The proposed intervention would then ideally be verified, rather than blindly accepted.
+For example:
+WAM research agent
+       ↓
+Execution begins
+       ↓
+Detector notices repeated searches
+       ↓
+Anomaly identified
+       ↓
+Diagnostic agent investigates
+       ↓
+Root cause = contradictory secondary sources
+       ↓
+Intervention = resolve through primary source
+       ↓
+Fix is tested
+       ↓
+Outcome recorded
+       ↓
+Future executions recognize the pattern earlier
+The learning component
+The system would maintain structured records of previous failures:
+Behavior → Failure → Root Cause → Intervention → Result
+Over time, this creates an execution history that can influence future behavior.
+The goal isn't vague "self-teaching." The goal is validated, evidence-based improvement of execution policies.
+For example:
+"This behavior has appeared 12 times before. In 10 cases it led to excessive research. The intervention that successfully stopped it was X."
+That gives the system a basis for changing its behavior.
+The bigger WAM opportunity
+We don't want to simply build:
+"An AI that watches another AI."
+That is too broad.
+We're investigating a much more specific concept:
+Financial Agent Behavioral Detection and Reliability Infrastructure
+The finance specialization is important because WAM's agents aren't generic chatbots. They're doing financial research, analysis, and briefing, which creates additional failure modes:
+Financial source conflicts
+Incorrect calculations
+Stale information
+Unsupported financial claims
+Research saturation
+Inconsistent financial data
+Changes in investment conclusions
+Missing evidence
+Poor source provenance
+Eventually, the system could therefore evaluate both:
+How the AI is behaving
+and
+Whether what the AI is producing is financially trustworthy.
+Potential architecture
+                    WAM FINANCIAL AGENTS
+                            │
+                            ▼
+                    EXECUTION TRACE
+                            │
+                            ▼
+                 ┌─────────────────────┐
+                 │   DETECTION ENGINE  │
+                 │                     │
+                 │ Loops               │
+                 │ Cost                │
+                 │ Time                │
+                 │ Information gain    │
+                 │ Behavioral drift    │
+                 │ Output anomalies    │
+                 └──────────┬──────────┘
+                            │
+                     Anomaly detected
+                            │
+                            ▼
+                 ┌─────────────────────┐
+                 │ DIAGNOSTIC AGENT    │
+                 └──────────┬──────────┘
+                            │
+                            ▼
+                     ROOT-CAUSE ANALYSIS
+                            │
+                            ▼
+                       INTERVENTION
+                            │
+                            ▼
+                       VERIFICATION
+                            │
+                            ▼
+                     LEARNING MEMORY
+                            │
+                            ▼
+                  UPDATED EXECUTION POLICY
+                            │
+                            └──────→ Future WAM agents
+What makes this particularly interesting
+We're interested in going beyond traditional agent observability, which mostly tells you what happened.
+Our question is:
+Can we detect that an agent is entering a problematic state before it fails, understand exactly why, intervene efficiently, and learn from whether that intervention actually worked?
+If we can make that finance-specific, it potentially becomes something that could be valuable not only inside WAM but across financial AI systems more broadly.
+Long-term goal
+We're not currently assuming this is patentable. The goal first is to determine whether there is a genuinely novel technical mechanism worth protecting.
+The long-term possibility is to develop a sufficiently specific system—potentially involving a unique combination of:
+behavioral detection + financial anomaly detection + root-cause diagnosis + intervention + verification + adaptive learning
+that could become proprietary WAM technology and potentially be protected through intellectual property.
+For now, however, the priority is much simpler:
+Understand the problem deeply → study existing approaches → identify what they don't solve → build a small detector around WAM's real failures → test it → iterate.

@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wam-shadow-desk"
+version = "0.1.0"
+description = "A research loop that runs beside the market, rebuilds WAM's Pocket Pulse facts without n8n, and audits what the brief missed."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "scipy>=1.11",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+# Phase 3-4 (falsification statistics and causal work). Not needed for ingest or parity.
+research = [
+    "statsmodels>=0.14",
+    "tigramite>=5.2",   # PCMCI causal discovery
+    "dowhy>=0.11",      # do() queries and refutation tests
+]
+dev = ["pytest>=8"]
+
+[project.scripts]
+shadowdesk = "shadowdesk.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["shadowdesk*"]
+
+[tool.setuptools.package-data]
+"shadowdesk.reliability" = ["assets/*.json", "assets/fixtures/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["slow: tests that take more than a few seconds"]
