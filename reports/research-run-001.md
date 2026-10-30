@@ -86,6 +86,65 @@ ORCL (+10.6%; its investor day was Oct 28) and JNJ (+4.3%) moved far more than t
 - H2's coincidence (N3) and lead-time (N4) nulls are not run yet, so a dual-plane hit would still be only a candidate.
 - One brief and one reader. The method scales. These verdicts are specific to Oct 24 and Annie's list.
 
+## Methodology: what these verdicts can and cannot tell you
+
+**Nothing here is "proven".** Following Popper, a claim can only be refuted or corroborated. A corroborated
+claim has survived a test that could have killed it, which earns trust, never certainty. "Not corroborated" is
+also not "false": it means the data could not tell the claim apart from no effect. The confidence intervals
+in the tables show how wide that uncertainty is.
+
+**This run did not test one day.** Each claim was tested against 260 weeks of history. The Oct 24 brief only
+supplied the claims. Most effects came out small relative to the noise, which is why so few verdicts are decisive.
+
+**The brief's statements are of three kinds, and each is settled differently:**
+
+| Kind | Example from the brief | How it gets settled | Waiting needed? |
+| --- | --- | --- | --- |
+| Standing claim about how a company behaves | "AT&T and J&J have large operations that use fuel" | Longer history (15-20 years, daily data), event studies (Fed days, OPEC/geopolitical days), and the fundamentals themselves (fuel costs and debt in 10-K filings) | No, it can be done now |
+| Forward-looking claim | "Higher oil prices can pressure margins"; "watch the Fed on Wednesday" | Register a specific forecast before the outcome (direction, size, probability, resolution date), then score it when it resolves | Yes: about 50 resolved forecasts (3-4 weeks of daily briefs) for a first calibration curve; 3-6 months to separate skill from luck |
+| Hedged speculation | "Falling yields also reflect concerns about growth" | Cannot be settled, because no outcome contradicts it. Flag it, or rewrite it with a measure, a direction and a horizon | Not applicable |
+
+**Why more data matters, in one line:** the precision of an estimate improves with the square root of the
+sample, so detecting an effect half as large needs about four times the data. Five years of weekly returns
+pin an oil sensitivity to about ±0.03, too coarse for the differences the brief implies.
+
+**Rules the loop follows so that it does not fool itself:**
+
+1. Claims are written in falsifiable form *before* the data is looked at, and the null each one must beat is named.
+2. Every p-value in a run is corrected for multiple testing (Benjamini-Hochberg). A result that only looks good alone is labelled "suggestive", not shown as a finding.
+3. Estimation stops at the date of the brief. Later data is used only to score outcomes.
+4. The test itself is tested first, on simulated data with known answers (false-positive rate and power).
+5. Every verdict carries the exact query, data hash and seed needed to reproduce it.
+
+## Thoughts about training autoresearch for continuous improvement
+
+"Training" here starts as *learning from a growing record of tested claims*, not as training a neural network.
+The record has to exist before any model can learn from it.
+
+**What the loop learns from:** the ledger. Each day adds the brief's claims, the loop's hypotheses, how each
+was tested, and later how each turned out. Santino's reviews ("this was useful", "this was obvious", "this was
+wrong") are the human labels that no market data can provide.
+
+**Five improvement mechanisms, in the order they become possible:**
+
+1. **Calibration (weeks 1-4).** Score every forecast with a proper scoring rule (Brier or log score) and track the calibration curve. If "70% likely" calls come true 50% of the time, the loop shrinks its confidence. This is the simplest form of learning, and the most important.
+2. **Priors by claim type (month 1-3).** Count how often each kind of statement survives: "company X is exposed to factor Y", "this move was company-specific", "this indicator leads". New claims of a kind that rarely survives start with lower credibility, and that feeds back into how WAM's briefs are written.
+3. **Choosing which hypotheses to generate (month 2-6).** Treat each hypothesis generator (factor exposures, residual checks, Echo x Shadow scans, sensitivity scenarios) as an arm of a bandit. Generators whose ideas survive falsification and later prove right get more of the daily testing budget; the others get less, but never zero.
+4. **Improving the loop itself, Karpathy-style (ongoing).** Change one thing at a time (a new null, a new data source, a new prompt), re-run it on a fixed benchmark of past briefs whose outcomes are already known, and keep the change only if the score improves. Revert otherwise. Every change is a git commit with its benchmark result.
+5. **Training a model, literally (after hundreds of resolved records).** Once there are several hundred resolved claims, a small local model can be fine-tuned to predict, from a draft sentence, which tests it will fail. It is used only to triage drafts and point the expensive tests at the right sentences. It never issues verdicts, because the statistics and the outcomes do.
+
+**What must not be optimised:**
+
+- *Survival rate.* A loop rewarded for claims that pass will learn to make vague or obvious claims. Reward accuracy on resolved forecasts and usefulness to Santino instead.
+- *Repeated testing without a budget.* Over months, thousands of tests will produce lucky "discoveries". Use an online false-discovery method (alpha-investing or LORD) so the error rate stays controlled across time, not just within one run.
+- *Self-grading.* A model never judges its own conclusion. Verdicts come from code, data and outcomes; a different model plays the red team.
+- *A static benchmark.* Markets change regime. Keep a rolling hold-out period the loop has never seen, and re-check old conclusions when an Echo x Shadow pattern says the structure moved.
+
+**How Santino would know it is working:** after a quarter, the loop should show (a) a calibration curve close
+to the diagonal, (b) a falling share of untestable sentences in WAM's briefs, (c) at least a few claims flagged
+early that later resolved as the loop said, with lead time, and (d) a list of loop changes that were kept
+because they improved the benchmark. If none of these move, the loop is producing noise and should be redesigned.
+
 ## Reproduce
 
 ```
