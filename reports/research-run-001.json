@@ -1,0 +1,380 @@
+{
+  "claims": [
+    {
+      "claim_id": "W1",
+      "source": "WAM brief",
+      "quote": "AT&T and Johnson & Johnson have large operations that use fuel, while Microsoft and Oracle are less directly exposed.",
+      "test": "Market-adjusted oil beta of {T, JNJ} is below that of {MSFT, ORCL}",
+      "null": "L4 sign",
+      "estimate": 0.045724778392665574,
+      "ci": [
+        -0.055792536504790526,
+        0.14479232862611838
+      ],
+      "p": 0.776111944027986,
+      "direction": "neg",
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "block_bootstrap(B=2000, block=8, seed=8); centered_pvalue, one-sided H1: stat < 0"
+      ],
+      "notes": "",
+      "extra": {
+        "p_opposite": 0.22438780609695153,
+        "betas": {
+          "T": 0.0701,
+          "JNJ": -0.0176,
+          "MSFT": -0.0446,
+          "ORCL": 0.0055
+        },
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "W2-AMZN",
+      "source": "WAM brief",
+      "quote": "Higher oil prices increase costs for transportation and manufacturing, which can squeeze profit margins at companies like Amazon and Johnson & Johnson.",
+      "test": "AMZN's market-adjusted oil beta is negative (price reaction as proxy for margins)",
+      "null": "L4 sign",
+      "estimate": -0.05957513752694678,
+      "ci": [
+        -0.1277286884880516,
+        -0.0016146633004158145
+      ],
+      "p": 0.07396301849075462,
+      "direction": "neg",
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "block_bootstrap(B=2000, block=8, seed=17); centered_pvalue, one-sided H1: stat < 0"
+      ],
+      "notes": "",
+      "extra": {
+        "p_opposite": 0.9265367316341829,
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "W2-JNJ",
+      "source": "WAM brief",
+      "quote": "Higher oil prices increase costs for transportation and manufacturing, which can squeeze profit margins at companies like Amazon and Johnson & Johnson.",
+      "test": "JNJ's market-adjusted oil beta is negative (price reaction as proxy for margins)",
+      "null": "L4 sign",
+      "estimate": -0.017616969959984477,
+      "ci": [
+        -0.0635723223847538,
+        0.02074675121858173
+      ],
+      "p": 0.24187906046976512,
+      "direction": "neg",
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "block_bootstrap(B=2000, block=8, seed=18); centered_pvalue, one-sided H1: stat < 0"
+      ],
+      "notes": "",
+      "extra": {
+        "p_opposite": 0.7586206896551724,
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "W3",
+      "source": "WAM brief",
+      "quote": "Rate decisions feed through to every company you own, and most directly to AT&T, which carries significant debt.",
+      "test": "T has the most negative market-adjusted 10Y-yield beta among Annie's 5 stocks",
+      "null": "L4 sign",
+      "estimate": 0.01566545269037431,
+      "ci": [
+        -0.00839214753333735,
+        0.04090396307658387
+      ],
+      "p": 0.8470764617691154,
+      "direction": "neg",
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "block_bootstrap(B=2000, block=8, seed=27); centered_pvalue, one-sided H1: stat < 0"
+      ],
+      "notes": "",
+      "extra": {
+        "p_opposite": 0.15342328835582209,
+        "betas": {
+          "T": -0.0088,
+          "JNJ": -0.0245,
+          "MSFT": 0.0064,
+          "ORCL": -0.0068,
+          "AMZN": 0.0253
+        },
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "W4-MSFT",
+      "source": "WAM brief",
+      "quote": "A stronger dollar can reduce the value of overseas earnings for multinational companies.",
+      "test": "MSFT's market-adjusted dollar-index beta is negative",
+      "null": "L4 sign",
+      "estimate": -0.22045978591141968,
+      "ci": [
+        -0.6409500606268218,
+        0.20307232041420573
+      ],
+      "p": 0.19390304847576212,
+      "direction": "neg",
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "block_bootstrap(B=2000, block=8, seed=37); centered_pvalue, one-sided H1: stat < 0"
+      ],
+      "notes": "",
+      "extra": {
+        "p_opposite": 0.8065967016491754,
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "W4-AMZN",
+      "source": "WAM brief",
+      "quote": "A stronger dollar can reduce the value of overseas earnings for multinational companies.",
+      "test": "AMZN's market-adjusted dollar-index beta is negative",
+      "null": "L4 sign",
+      "estimate": -0.33490266204470054,
+      "ci": [
+        -0.8682915048944342,
+        0.03179564820832683
+      ],
+      "p": 0.10794602698650675,
+      "direction": "neg",
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "block_bootstrap(B=2000, block=8, seed=38); centered_pvalue, one-sided H1: stat < 0"
+      ],
+      "notes": "",
+      "extra": {
+        "p_opposite": 0.8925537231384307,
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "W4-GOOG",
+      "source": "WAM brief",
+      "quote": "A stronger dollar can reduce the value of overseas earnings for multinational companies.",
+      "test": "GOOG's market-adjusted dollar-index beta is negative",
+      "null": "L4 sign",
+      "estimate": -0.25133976507453076,
+      "ci": [
+        -0.6501205075165385,
+        0.25071618931824347
+      ],
+      "p": 0.16991504247876063,
+      "direction": "neg",
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "block_bootstrap(B=2000, block=8, seed=39); centered_pvalue, one-sided H1: stat < 0"
+      ],
+      "notes": "",
+      "extra": {
+        "p_opposite": 0.8305847076461769,
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "W5",
+      "source": "WAM brief",
+      "quote": "When bond yields fall, it can make borrowing cheaper for companies, but it also reflects concerns about economic growth.",
+      "test": "No falsifiable form: both outcomes are compatible with the sentence",
+      "null": "none",
+      "estimate": null,
+      "ci": null,
+      "p": null,
+      "direction": null,
+      "survives_fdr": null,
+      "outcome": "Untestable",
+      "queries": [],
+      "notes": "Logged, never scored. A testable version would name a horizon and a growth series.",
+      "extra": {}
+    },
+    {
+      "claim_id": "H1",
+      "source": "loop",
+      "quote": "Reader's top concern (Strait of Hormuz / Middle East Oil Shock, 8/10): a +10% weekly oil shock lowers an equal-weight basket of her holdings.",
+      "test": "Equal-weight total effect of do(WTI +10%) on {T, JNJ, MSFT, ORCL, AMZN, VOO} is negative",
+      "null": "L4 sign + L5 placebo",
+      "estimate": 0.0013118629917209196,
+      "ci": [
+        -0.0021596226690513472,
+        0.005496331099020202
+      ],
+      "p": 0.729135432283858,
+      "direction": "neg",
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "block_bootstrap(B=2000, block=8, seed=47); centered_pvalue, one-sided H1: stat < 0",
+        "do(): TE_i = b_oil_i + b_mkt_i * g, g = coef of CL=F in VOO ~ CL=F + ^TNX + DX-Y.NYB; adjustment set {^TNX, DX-Y.NYB}; placebo = CL=F rolled 26 weeks"
+      ],
+      "notes": "Assumed DAG: oil -> market -> stock and oil -> stock; rates and dollar as common causes. Not identified if oil and stocks share an omitted driver (e.g. global demand).",
+      "extra": {
+        "p_opposite": 0.27136431784107945,
+        "per_holding_pct": {
+          "AMZN": -0.23,
+          "MSFT": -0.17,
+          "JNJ": -0.12,
+          "VOO": 0.23,
+          "ORCL": 0.37,
+          "T": 0.71
+        },
+        "g_oil_on_mkt": 0.0243,
+        "placebo_effect_pct": -0.115,
+        "placebo_p_neg": 0.2868565717141429,
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "H2",
+      "source": "loop",
+      "quote": "The oil shock is a dual-plane signal: an unusual oil move (Echo) while the oil-to-holdings relationship has changed (Shadow).",
+      "test": "Echo: |oil weekly return| unusual vs 5y (N1). Shadow: any holding's 26-week oil beta unusual vs its history (N2). Both needed.",
+      "null": "N1 x N2",
+      "estimate": 0.3003132967505716,
+      "ci": null,
+      "p": 0.8573999999999999,
+      "direction": null,
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "Echo: residual_percentile(CL=F weekly log return, demeaned); Shadow: window_percentile(beta_oil, window=26) per holding, Bonferroni x6; dual-plane p = max(p_echo, p_shadow)"
+      ],
+      "notes": "N3 (coincidence null) and N4 (lead time) are not run for this pattern yet; a dual-plane hit here is a candidate, not an alert.",
+      "extra": {
+        "echo_z": 0.3,
+        "echo_p": 0.7231,
+        "shadow_latest_beta_and_p": {
+          "T": [
+            0.0606,
+            0.7857
+          ],
+          "JNJ": [
+            -0.1253,
+            0.3952
+          ],
+          "MSFT": [
+            -0.1782,
+            0.4524
+          ],
+          "ORCL": [
+            0.1178,
+            0.5524
+          ],
+          "AMZN": [
+            -0.1245,
+            0.8952
+          ],
+          "VOO": [
+            -0.109,
+            0.1429
+          ]
+        },
+        "oil_week_return_pct": 1.82,
+        "suggestive": false
+      }
+    },
+    {
+      "claim_id": "H3",
+      "source": "loop",
+      "quote": "AT&T's fall in the week of Oct 19 was company-specific (earnings), not a rates or market move.",
+      "test": "T's residual that week is unusual vs its history (N1) and is most of the move",
+      "null": "N1",
+      "estimate": -3.5120323447097617,
+      "ci": null,
+      "p": 0.011538461538461539,
+      "direction": null,
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "ols(T ~ factors); residual_percentile(resid) for the as_of week"
+      ],
+      "notes": "Bears on WAM's People Watch line that rates reach AT&T most directly: that week, rates explain little of the drop.",
+      "extra": {
+        "actual_pct": -11.33,
+        "explained_by_factors_pct": 0.28,
+        "residual_pct": -11.61,
+        "residual_share": 1.02,
+        "suggestive": true
+      }
+    },
+    {
+      "claim_id": "H4",
+      "source": "loop",
+      "quote": "Last week's oil move predicts this week's returns for energy, AT&T and the market (a lead the brief could use).",
+      "test": "Walk-forward out-of-sample R^2 of r(t) on oil(t-1) is > 0 for at least one of XLE, T, VOO",
+      "null": "N4",
+      "estimate": -0.007995984843131687,
+      "ci": null,
+      "p": 1.0,
+      "direction": null,
+      "survives_fdr": false,
+      "outcome": "Not corroborated",
+      "queries": [
+        "returns(weekly log; ^TNX in pp) 2021-11-01..2026-10-19, n=260; model r_i ~ VOO + CL=F + ^TNX + DX-Y.NYB (Newey-West lags 2)",
+        "walk_forward_r2(y_t, CL=F_{t-1}, min_train=104 weeks, expanding refit)"
+      ],
+      "notes": "",
+      "extra": {
+        "XLE": {
+          "oos_r2": -0.0264,
+          "forecasts": 155
+        },
+        "T": {
+          "oos_r2": -0.008,
+          "forecasts": 155
+        },
+        "VOO": {
+          "oos_r2": -0.0251,
+          "forecasts": 155
+        },
+        "suggestive": false
+      }
+    }
+  ],
+  "self_test": {
+    "false_positive_rate": 0.058,
+    "fpr_se": 0.007391616873188166,
+    "n_null": 1000,
+    "power": 0.725,
+    "power_se": 0.031573327350787724,
+    "n_planted": 200,
+    "planted_beta": -0.08,
+    "alpha": 0.05,
+    "bootstrap_B": 500
+  },
+  "outcome_week": {
+    "week": "2026-10-26",
+    "returns_pct": {
+      "T": -0.05,
+      "JNJ": 4.32,
+      "MSFT": 1.07,
+      "ORCL": 10.62,
+      "AMZN": -1.7,
+      "VOO": 1.25,
+      "XLE": -0.89,
+      "CL=F": 0.38,
+      "DX-Y.NYB": -0.08,
+      "^TNX_pp": 0.001
+    },
+    "note": "Partial week (through Thu Oct 29). One observation; recorded for the ledger, not scored."
+  }
+}
